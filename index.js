@@ -42,10 +42,8 @@ async function main() {
     // Realiza a requisição inicial para pegar o totalCount
     const response = await fetch(url);
     const data = await response.json();
-
     const totalCount = data.data.search.products.pageInfo.totalCount;
     console.log("Total Count:", totalCount);
-
     // Loop de 'first' e 'after'
     for (let i = 0; i < totalCount; i += first) {
       // Atualiza o valor de 'after' para o índice do último produto da página anterior
@@ -69,8 +67,8 @@ async function main() {
       // Coleta os produtos da resposta e adiciona ao array
       const products = data.data.search.products.edges;
       allProducts = allProducts.concat(products);
+      console.log(`Requisição ${i / first + 1}: Produtos encontrados nesta requisição:`, products.length);
     }
-
     fs.writeFileSync('output.json', JSON.stringify(allProducts, null, 2), 'utf-8');
     console.log('Arquivo output.json salvo com sucesso!');
   } catch (error){
