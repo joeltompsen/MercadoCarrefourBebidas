@@ -66,6 +66,18 @@ async function main() {
 
       // Coleta os produtos da resposta e adiciona ao array
       const products = data.data.search.products.edges;
+
+      let ignoreUseless= true;
+      if(ignoreUseless){
+        products.forEach(edge => {
+          edge.node.properties = null;
+          edge.node.properties = null;
+          edge.node.isVariantOf = null;
+          edge.node.breadcrumbList = null;
+          edge.node.sellers = null;
+          edge.node.productClusters = null;
+        });
+      }
       allProducts = allProducts.concat(products);
       console.log(`Requisição ${i / first + 1}: Produtos encontrados nesta requisição:`, products.length);
     }
